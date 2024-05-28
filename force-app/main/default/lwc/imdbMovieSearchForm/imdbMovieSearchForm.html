@@ -1,0 +1,15 @@
+<template>
+    <div class="main-container">
+        <div class="movies-list">
+            <h1 class="h1-class">Movies List</h1>
+            <lightning-layout class="slds-var-p-around_medium">
+                <lightning-layout-item class="input-field" size="9">
+                    <lightning-input label="Enter a movie name" onchange={inputMovieHandler}></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item class="slds-var-m-top_large slds-var-m-left_small" size="3">
+                    <lightning-button label="Search" onclick={searchButtonHandler}></lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+    </div>
+</template>

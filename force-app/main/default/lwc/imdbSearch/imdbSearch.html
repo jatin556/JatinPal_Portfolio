@@ -1,0 +1,8 @@
+<template>
+    <lightning-card class="slds-var-p-around_medium">
+        <c-imdb-movie-search-form onmovienamedata={handleOnMovieData}></c-imdb-movie-search-form>
+    </lightning-card>
+    <lightning-card class="slds-var-p-around_medium">
+        <c-imdb-results movie-name={movieName}></c-imdb-results>
+    </lightning-card>
+</template>

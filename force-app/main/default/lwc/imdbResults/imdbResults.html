@@ -1,0 +1,22 @@
+<template>
+        <lightning-layout multiple-rows>
+            <template if:false={movieList}>
+                <lightning-layout-item size="12">
+                    <div>Please Enter something and click on search button!</div>
+                </lightning-layout-item>
+            </template>
+            <template if:true={movieList}>
+
+                    <template for:each={movieList} for:item="movie">
+                        <lightning-layout-item size="4" key={movie.imdbID} class="slds-var-m-around_medium slds-box">
+                                <img class="movie-image" src={movie.Poster} alt="No Image"/>
+                                <div class="slds-var-p-around_x-small">
+                                    <p>{movie.Title}</p>
+                                    <span class="slds-badge">{movie.Year}</span>
+                                </div>
+                    </lightning-layout-item>
+                    </template>
+
+            </template>
+        </lightning-layout>
+</template>
