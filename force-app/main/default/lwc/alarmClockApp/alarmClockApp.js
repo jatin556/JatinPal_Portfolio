@@ -3,13 +3,26 @@ import AlarmClockAssets from '@salesforce/resourceUrl/AlarmClockAssets';
 
 export default class AlarmClockApp extends LightningElement {
     clockImage = AlarmClockAssets + '/AlarmClockAssets/clock.png';
+    ringtone = new Audio(AlarmClockAssets+'/AlarmClockAssets/Clocksound.mp3')
     currentTime='';
     hours = [];
     mins = [];
     ampm = ['AM', 'PM'];
+    alarmTime;
+    isAlarmSet = false;
+    isAlarmTriggered = false;
     selectedHour;
     selectedMinute;
     selectedAMPM;
+    
+
+    get isFieldNotSelected() {
+        return !(this.selectedAMPM && this.selectedHour && this.selectedMinute);
+    }
+
+    get shakeImage() {
+        return this.isAlarmTriggered ? 'shake' : '';
+    }
 
     connectedCallback() {
         this.hoursHandler();
@@ -40,6 +53,13 @@ export default class AlarmClockApp extends LightningElement {
             sec = sec < 10 ? '0' + sec : sec;
 
             this.currentTime = `${hour}:${min}:${sec} ${ampm}`;
+
+            if(this.alarmTime === `${hour}:${min} ${ampm}`) {
+                // console.log('Alarm triggred');
+                this.isAlarmTriggered = true;
+                this.ringtone.play();
+                this.ringtone.loop = true;
+            }
         }, 1000)
     }
 
@@ -70,8 +90,24 @@ export default class AlarmClockApp extends LightningElement {
             this.selectedAMPM = value;
         }
 
-        console.log("this.selectedHour: ", this.selectedHour);
-        console.log("this.selectedMinute: ", this.selectedMinute);
-        console.log("this.selectedAMPM: ", this.selectedAMPM);
+        // console.log("this.selectedHour: ", this.selectedHour);
+        // console.log("this.selectedMinute: ", this.selectedMinute);
+        // console.log("this.selectedAMPM: ", this.selectedAMPM);
+    }
+
+    setAlarmHandler(event) {
+        this.alarmTime = `${this.selectedHour}:${this.selectedMinute} ${this.selectedAMPM}`
+        this.isAlarmSet = true;
+    }
+
+    clearAlarmHandler(event) {
+        this.alarmTime = '';
+        this.isAlarmSet = false;
+        this.isAlarmTriggered = false;
+        this.ringtone.pause();
+        const elements = this.template.querySelectorAll('c-clock-dropdown');
+        Array.from(elements).forEach(element => {
+            element.reset('');
+        })
     }
 }

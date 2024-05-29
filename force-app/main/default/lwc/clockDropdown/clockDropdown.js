@@ -6,17 +6,23 @@ export default class ClockDropdown extends LightningElement {
     @api options = [];
 
     selectOptionHandler(event) {
-        console.log(this.label);
-        console.log(event.target.value);
+        // console.log(this.label);
+        // console.log(event.target.value);
         this.callParent(event.target.value);
     }
 
     callParent(value) {
-        this.dispatchEvent(new CustomEvent('selectedoption'), {
+        this.dispatchEvent(new CustomEvent('selectedoption', {
             detail : {
                 label : this.label,
                 value: value
             }
-        });
+        }))
+    }
+
+    @api
+    reset(value) {
+        this.template.querySelector('select').value = value;
+        this.callParent(value);
     }
 }
