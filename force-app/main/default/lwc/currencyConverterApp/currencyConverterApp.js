@@ -5,8 +5,8 @@ import currencyConverterAssets from '@salesforce/resourceUrl/currencyConverterAs
 export default class CurrencyConverterApp extends LightningElement {
     currencyImage = currencyConverterAssets + '/currencyConverterAssets/currency.svg';
     countryList = countryCodeList;
-    countryFrom = 'USD';
-    countryTo = 'GBP';
+    countryFrom = 'GBP';
+    countryTo = 'USD';
     amount = '';
     result;
     error;
